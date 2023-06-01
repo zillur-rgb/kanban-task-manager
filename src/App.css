@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&family=Roboto:wght@400;700&display=swap");
+
+* {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color: white;
+}
+
+.Kanban {
+  display: flex;
+  justify-content: space-evenly;
+  background: #20212c;
+  width: fit-content;
+  gap: 30px;
+  padding: 24px;
+}
+
+.column {
+  width: 300px;
+  min-height: 500px;
+}
+
+.card {
+  border-radius: 8px;
+  padding: 23px 16px;
+  width: 280px;
+  margin: 10px 0px;
+  background-color: #2b2c37;
+  box-shadow: 0px 4px 6px 0px #364e7e1a;
+}
+
+/* Layout styling */
+.container {
+  display: grid;
+
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+  gap: 0px;
+  height: 100vh;
+}
+
+.sidebar {
+  background-color: #2b2c37;
+  grid-row-start: 1;
+  grid-column-start: 1;
+
+  grid-row-end: 7;
+  grid-column-end: 3;
+  border-right: 1px solid #3e3f4e;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 20px;
+  padding-top: 20px;
+  font-size: 14px;
+}
+
+.sidebar img {
+  padding-top: 20px;
+}
+.sidebar-boards {
+  margin-top: 65px;
+}
+
+.sidebar-p {
+  font-weight: bold;
+  color: #828fa3;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.blue {
+  color: #635fc7;
+}
+
+.list-board {
+  padding: 14px 0px;
+}
+.header {
+  background-color: #2b2c37;
+  grid-row-start: 1;
+  grid-column-start: 3;
+
+  grid-row-end: 2;
+  grid-column-end: 10;
+  border-bottom: 1px solid #3e3f4e;
+  display: flex;
+  align-items: center;
+  padding: 0px 20px;
+  justify-content: space-between;
+}
+
+.header h1 {
+  font-size: 24px;
+}
+
+.header div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.header button {
+  background-color: #635fc7;
+  border-radius: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 14px 24px;
+}
+.test {
+  background-color: #bdcd7a;
+  grid-row-start: 2;
+  grid-column-start: 3;
+
+  grid-row-end: 7;
+  grid-column-end: 10;
+  overflow: scroll;
+}
