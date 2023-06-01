@@ -10,22 +10,35 @@
   justify-content: space-evenly;
   background: #20212c;
   width: fit-content;
-  gap: 30px;
+  gap: 24px;
   padding: 24px;
 }
 
 .column {
-  width: 300px;
   min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .card {
+  font-size: 15px;
   border-radius: 8px;
   padding: 23px 16px;
   width: 280px;
-  margin: 10px 0px;
   background-color: #2b2c37;
   box-shadow: 0px 4px 6px 0px #364e7e1a;
+}
+
+.card p {
+  font-size: 12px;
+  color: #828fa3;
+}
+
+.column-name {
+  color: #828fa3;
+  font-size: 12px;
+  margin-bottom: 24px;
 }
 
 /* Layout styling */
@@ -113,7 +126,7 @@
   padding: 14px 24px;
 }
 .test {
-  background-color: #bdcd7a;
+  background-color: #20212c;
   grid-row-start: 2;
   grid-column-start: 3;
 

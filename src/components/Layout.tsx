@@ -5,6 +5,7 @@ type Props = {
   children: React.ReactNode;
   boards: any;
   setCurrentBoard: (index: number) => void;
+  currentBoard: number;
 };
 
 const Layout = (props: Props) => {
@@ -33,10 +34,10 @@ const Layout = (props: Props) => {
         </div>
 
         <div className="header">
-          {/* <h1>{props.boards.name}</h1> */}
+          <h1>{props.boards[props.currentBoard].name}</h1>
           <div>
             <button>+ Add New Task</button>
-            <img src={dots} alt="" />
+            <img src={dots} alt="dots" />
           </div>
         </div>
         <div className="test">{props.children}</div>
