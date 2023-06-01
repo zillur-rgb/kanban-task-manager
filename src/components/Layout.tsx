@@ -1,5 +1,6 @@
 import Logo from "../assets/logo-light.svg";
 import dots from "../assets/icon-vertical-ellipsis.svg";
+import boardImg from "../assets/icon-board.svg";
 
 type Props = {
   children: React.ReactNode;
@@ -13,7 +14,7 @@ const Layout = (props: Props) => {
     <>
       <div className="container">
         <div className="sidebar">
-          <img src={Logo} alt="Logo" />
+          <img src={Logo} alt="Logo" className="logo" />
 
           <div className="sidebar-boards">
             <p className="sidebar-p">All Boards({props.boards.length})</p>
@@ -25,10 +26,13 @@ const Layout = (props: Props) => {
                   onClick={() => props.setCurrentBoard(index)}
                   className="list-board"
                 >
+                  <img src={boardImg} alt="board" />
                   {board.name}
                 </div>
               ))}
-              <div className="list-board blue">+ Create New Board</div>
+              <div className="list-board blue">
+                <img src={boardImg} alt="board" />+ Create New Board
+              </div>
             </div>
           </div>
         </div>

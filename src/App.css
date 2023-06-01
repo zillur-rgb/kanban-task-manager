@@ -10,12 +10,13 @@
   justify-content: space-evenly;
   background: #20212c;
   width: fit-content;
-  gap: 24px;
+  gap: 4px;
   padding: 24px;
 }
 
 .column {
   min-height: 500px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -68,14 +69,23 @@
   font-size: 14px;
 }
 
-.sidebar img {
+.logo {
   padding-top: 20px;
 }
 .sidebar-boards {
+  font-weight: bold;
   margin-top: 65px;
 }
 
-.sidebar-p {
+.list-board {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 15px;
+  padding: 14px 0px;
+}
+
+.sidebar-boards h4 {
   font-weight: bold;
   color: #828fa3;
   font-size: 12px;
@@ -86,9 +96,6 @@
   color: #635fc7;
 }
 
-.list-board {
-  padding: 14px 0px;
-}
 .header {
   background-color: #2b2c37;
   grid-row-start: 1;
