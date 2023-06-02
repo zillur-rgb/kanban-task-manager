@@ -46,3 +46,10 @@
   font-size: 13px;
   font-weight: bold;
 }
+/* VIEW TASK */
+
+.view-task-content h3 {
+  font-size: 13px;
+  font-weight: normal;
+  color: #828fa3;
+}

@@ -50,7 +50,7 @@ const AddNewTaskForm = ({ setIsModalOpen }: Props) => {
           <div className="field-wrapper">
             <label htmlFor="subtasks">Subtasks</label>
             {Array.from(Array(subTaskAmount)).map((_, index) => (
-              <div className="subtask-item">
+              <div className="subtask-item" key={index}>
                 <Field
                   placeholder="e.g. Complete wireframe"
                   name={`subtasks[${index}].name`}

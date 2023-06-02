@@ -5,9 +5,15 @@ type Props = {
   setBoards: any;
   currentBoard: number;
   setIsModalOpen: any;
+  setSelectedTask: (item: ITasks) => void;
 };
 
-const Kanban = ({ boards, setBoards }: Props) => {
+const Kanban = ({
+  boards,
+  setBoards,
+  setIsModalOpen,
+  setSelectedTask,
+}: Props) => {
   console.log("Boards", boards);
 
   const onDragEnd = (result: any, columns: any) => {
@@ -80,6 +86,10 @@ const Kanban = ({ boards, setBoards }: Props) => {
                               {(provided, snapshot) => {
                                 return (
                                   <div
+                                    onClick={() => {
+                                      setIsModalOpen(true);
+                                      setSelectedTask(item);
+                                    }}
                                     className="card"
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}

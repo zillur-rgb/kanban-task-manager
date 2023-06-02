@@ -4,11 +4,13 @@ import Layout from "./components/Layout";
 import data from "./data.json";
 import Kanban from "./components/Kanban";
 import Modal from "./components/forms/Modal";
+import { ITasks } from "./types/boards";
 
 function App() {
   const [currentBoard, setCurrentBoard] = useState<number>(0);
   const [boards, setBoards] = useState({});
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedTask, setSelectedTask] = useState<ITasks>();
   console.log("isModalOpen", isModalOpen);
 
   // console.log("BOards", boards);
@@ -21,7 +23,13 @@ function App() {
 
   return (
     <>
-      {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
+      {isModalOpen && (
+        <Modal
+          setIsModalOpen={setIsModalOpen}
+          setSelectedTask={setSelectedTask}
+          selectedTask={selectedTask}
+        />
+      )}
       <Layout
         boards={data.boards}
         setCurrentBoard={setCurrentBoard}
@@ -33,6 +41,7 @@ function App() {
           setBoards={setBoards}
           currentBoard={currentBoard}
           setIsModalOpen={setIsModalOpen}
+          setSelectedTask={setSelectedTask}
         />
       </Layout>
     </>
