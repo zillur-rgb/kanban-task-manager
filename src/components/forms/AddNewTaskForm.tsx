@@ -31,14 +31,17 @@ const AddNewTaskForm = ({ setIsModalOpen }: Props) => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values) => {
+          // add isCompleted property to all subtasks
           values.subtasks.map((task: any) => (task.isCompleted = false));
 
+          // find the index of the array that we adding to
           let index = Object.entries(currentColumns).findIndex(
             ([id, column]: [any, any]) => column.name === values.status && id
           );
-
+          // copy the old tasks and add a new task into a new array
           let newTasksArray = [...currentColumns[index].tasks, { ...values }];
 
+          // replace the currentColumns[index] so eg "Todos" array. With the newTaskArrays
           setCurrentColumns({
             ...currentColumns,
             [index]: {
@@ -78,6 +81,7 @@ const AddNewTaskForm = ({ setIsModalOpen }: Props) => {
                   src={cross}
                   alt="remove"
                   onClick={() => setSubTaskAmount((prev) => (prev -= 1))}
+                  className="remove-subtask"
                 />
               </div>
             ))}

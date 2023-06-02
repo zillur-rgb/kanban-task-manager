@@ -43,6 +43,10 @@
 .delete-modal button {
   width: 100%;
   margin: 0px 10px;
+  cursor: pointer;
+}
+.delete-modal button:hover {
+  opacity: 0.9;
 }
 
 .red {

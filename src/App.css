@@ -176,6 +176,11 @@
   font-weight: bold;
   font-size: 15px;
   padding: 14px 24px;
+  cursor: pointer;
+}
+
+.header button:hover {
+  opacity: 0.9;
 }
 main {
   background-color: #20212c;

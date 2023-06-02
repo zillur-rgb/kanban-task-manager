@@ -46,8 +46,19 @@
   font-size: 13px;
   font-weight: bold;
   border: none;
+  cursor: pointer;
 }
 
+.button:hover {
+  opacity: 0.8;
+}
+
+.remove-subtask {
+  cursor: pointer;
+}
+.remove-subtask:hover {
+  opacity: 0.8;
+}
 .submit {
   background: #635fc7;
   color: white;
