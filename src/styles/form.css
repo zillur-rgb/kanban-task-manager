@@ -46,10 +46,56 @@
   font-size: 13px;
   font-weight: bold;
 }
+
 /* VIEW TASK */
 
+.view-task-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.view-task-content h1 {
+  margin: 0;
+}
 .view-task-content h3 {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: normal;
   color: #828fa3;
+}
+
+.view-task-content h4 {
+  font-size: 13px;
+}
+
+.completed {
+  background: #635fc7;
+  width: 16px;
+  height: 16px;
+  padding: 3px;
+  border-radius: 2px;
+  text-decoration: line-through;
+}
+
+.line-through {
+  text-decoration: line-through;
+  color: #828fa3;
+}
+
+.not-completed {
+  background: #2b2c37;
+  min-width: 16px;
+  min-height: 16px;
+  border-radius: 2px;
+}
+
+.subtask {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  padding: 13px;
+  background: #20212c;
+  gap: 20px;
+  margin: 8px 0px;
+  border-radius: 4px;
 }
