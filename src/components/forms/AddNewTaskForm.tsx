@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import cross from "../../assets/icon-cross.svg";
 import { Field, Form, Formik } from "formik";
 import "../../styles/form.css";
+import { CopyContext } from "../../App";
 
 type Props = {
   setIsModalOpen: any;
@@ -16,11 +17,13 @@ interface IInitialValues {
 const AddNewTaskForm = ({ setIsModalOpen }: Props) => {
   const [subTaskAmount, setSubTaskAmount] = useState<number>(1);
 
+  const { currentColumns, setCurrentColumns } = useContext(CopyContext);
+
   const initialValues: IInitialValues = {
     title: "",
     description: "",
     subtasks: [],
-    status: "",
+    status: "Todo",
   };
   return (
     <>
@@ -28,7 +31,21 @@ const AddNewTaskForm = ({ setIsModalOpen }: Props) => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values) => {
-          console.log("Submitted values", values);
+          values.subtasks.map((task: any) => (task.isCompleted = false));
+
+          let index = Object.entries(currentColumns).findIndex(
+            ([id, column]: [any, any]) => column.name === values.status && id
+          );
+
+          let newTasksArray = [...currentColumns[index].tasks, { ...values }];
+
+          setCurrentColumns({
+            ...currentColumns,
+            [index]: {
+              ...currentColumns[index],
+              tasks: newTasksArray,
+            },
+          });
           setIsModalOpen(false);
         }}
       >
@@ -43,7 +60,7 @@ const AddNewTaskForm = ({ setIsModalOpen }: Props) => {
             <Field
               name="description"
               as="textarea"
-              className="inout textarea"
+              className="input textarea"
             />
           </div>
 
@@ -53,7 +70,7 @@ const AddNewTaskForm = ({ setIsModalOpen }: Props) => {
               <div className="subtask-item" key={index}>
                 <Field
                   placeholder="e.g. Complete wireframe"
-                  name={`subtasks[${index}].name`}
+                  name={`subtasks[${index}].title`}
                   className="input"
                 />
 
