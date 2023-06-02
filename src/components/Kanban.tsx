@@ -4,6 +4,7 @@ type Props = {
   boards: any;
   setBoards: any;
   currentBoard: number;
+  setIsModalOpen: any;
 };
 
 const Kanban = ({ boards, setBoards }: Props) => {
@@ -57,7 +58,6 @@ const Kanban = ({ boards, setBoards }: Props) => {
         {Object.entries(boards).map(([columnId, column]: [string, any]) => {
           return (
             <div key={columnId}>
-              <h4>{column.name}</h4>
               <div>
                 <h4 className="column-name">
                   {column.name} ({column.tasks.length})
@@ -109,6 +109,7 @@ const Kanban = ({ boards, setBoards }: Props) => {
           );
         })}
       </DragDropContext>
+      <div className="add-new-column">+ New Column</div>
     </div>
   );
 };

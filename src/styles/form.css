@@ -1,0 +1,48 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.field-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field-wrapper label {
+  font-size: 12px;
+}
+
+.input {
+  border: 1px solid #828fa340;
+  background: #2b2c37;
+  border-radius: 4px;
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 16px;
+  outline: none;
+  font-weight: normal;
+  font-size: 13px;
+}
+
+.textarea {
+  min-height: 112px;
+  resize: none;
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.new-subtask {
+  border-radius: 20px;
+  background: white;
+  height: 40px;
+  text-align: center;
+  color: #635fc7;
+  font-size: 13px;
+  font-weight: bold;
+}

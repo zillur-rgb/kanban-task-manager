@@ -7,6 +7,7 @@ type Props = {
   boards: any;
   setCurrentBoard: (index: number) => void;
   currentBoard: number;
+  setIsModalOpen: any;
 };
 
 const Layout = (props: Props) => {
@@ -17,7 +18,7 @@ const Layout = (props: Props) => {
           <img src={Logo} alt="Logo" className="logo" />
 
           <div className="sidebar-boards">
-            <p className="sidebar-p">All Boards({props.boards.length})</p>
+            <h4>All Boards({props.boards.length})</h4>
 
             <div>
               {props.boards.map((board: any, index: number) => (
@@ -40,11 +41,13 @@ const Layout = (props: Props) => {
         <div className="header">
           <h1>{props.boards[props.currentBoard].name}</h1>
           <div>
-            <button>+ Add New Task</button>
+            <button onClick={() => props.setIsModalOpen(true)}>
+              + Add New Task
+            </button>
             <img src={dots} alt="dots" />
           </div>
         </div>
-        <div className="test">{props.children}</div>
+        <main className="test">{props.children}</main>
       </div>
     </>
   );

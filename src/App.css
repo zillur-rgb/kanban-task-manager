@@ -42,6 +42,21 @@
   margin-bottom: 24px;
 }
 
+.add-new-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 280px;
+  background: linear-gradient(
+    180deg,
+    rgba(43, 44, 55, 0.25) 0%,
+    rgba(43, 44, 55, 0.125) 100%
+  );
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 24px;
+  color: #828fa3;
+}
 /* Layout styling */
 .container {
   display: grid;
@@ -51,6 +66,7 @@
 
   gap: 0px;
   height: 100vh;
+  width: 100%;
 }
 
 .sidebar {
@@ -132,7 +148,7 @@
   font-size: 15px;
   padding: 14px 24px;
 }
-.test {
+main {
   background-color: #20212c;
   grid-row-start: 2;
   grid-column-start: 3;
@@ -140,4 +156,10 @@
   grid-row-end: 7;
   grid-column-end: 10;
   overflow: scroll;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+main::-webkit-scrollbar {
+  display: none; /* Safari and Chrome*/
 }
