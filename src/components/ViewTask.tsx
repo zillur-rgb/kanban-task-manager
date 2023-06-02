@@ -28,7 +28,10 @@ const ViewTask = ({ selectedTask }: Props) => {
           Subtasks ({amountOfCompletion} of {selectedTask.subtasks.length})
         </h4>
         {selectedTask.subtasks.map((task) => (
-          <div className={`subtask ${task.isCompleted && "line-through"}`}>
+          <div
+            className={`subtask ${task.isCompleted && "line-through"}`}
+            key={task.title}
+          >
             {!task.isCompleted ? (
               <div className="not-completed"></div>
             ) : (

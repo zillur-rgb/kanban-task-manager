@@ -3,29 +3,40 @@ import "../../styles/modal.css";
 import { useRef } from "react";
 import { useClickAway } from "react-use";
 import ViewTask from "../ViewTask";
+import NewBoard from "./NewBoard";
 
 type Props = {
+  isModalOpen: boolean | string;
   setIsModalOpen: any;
   selectedTask: any;
   setSelectedTask: any;
+  copy: any;
 };
 
-const Modal = ({ setIsModalOpen, selectedTask, setSelectedTask }: Props) => {
+const Modal = ({
+  isModalOpen,
+  setIsModalOpen,
+  selectedTask,
+  setSelectedTask,
+  copy,
+}: Props) => {
   const ref = useRef(null);
 
   useClickAway(ref, () => {
-    console.log("Hello hello");
-    setIsModalOpen(false);
     setSelectedTask({});
     setIsModalOpen(false);
   });
   return (
     <div className="modal-background">
       <div className="modal" ref={ref}>
-        {selectedTask?.title && <ViewTask selectedTask={selectedTask} />}
-        {!selectedTask?.title && (
+        {isModalOpen === "view_task" && (
+          <ViewTask selectedTask={selectedTask} />
+        )}
+        {isModalOpen === "add_new_task" && (
           <AddNewTaskForm setIsModalOpen={setIsModalOpen} />
         )}
+
+        {isModalOpen === "add_new_board" && <NewBoard />}
       </div>
     </div>
   );

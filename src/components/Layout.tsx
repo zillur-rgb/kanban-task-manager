@@ -4,20 +4,20 @@ import boardImg from "../assets/icon-board.svg";
 
 type Props = {
   children: React.ReactNode;
-  boards: any;
+  copy: any;
   setCurrentBoard: (index: number) => void;
   currentBoard: number;
-  setIsModalOpen: (modal: boolean) => void;
+  setIsModalOpen: (modal: boolean | string) => void;
 };
 
 const Layout = (props: Props) => {
-  // Getitng which board is selected
-  const handleChosen = (item: { name: any }) => {
-    if (item.name === props.boards[props.currentBoard].name) {
-      return "list-board active";
-    }
-    return "list-board";
-  };
+  // // Getitng which board is selected
+  // const handleChosen = (item: { name: any }) => {
+  //   if (item.name === props.boards[props.currentBoard].name) {
+  //     return "list-board active";
+  //   }
+  //   return "list-board";
+  // };
   return (
     <>
       <div className="container">
@@ -25,20 +25,27 @@ const Layout = (props: Props) => {
           <img src={Logo} alt="Logo" className="logo" />
 
           <div className="sidebar-boards">
-            <h4>All Boards({props.boards.length})</h4>
+            <h4>All Boards({props.copy.length})</h4>
 
             <div>
-              {props.boards.map((board: any, index: number) => (
+              {props.copy.map((board: any, index: number) => (
                 <div
                   key={index}
                   onClick={() => props.setCurrentBoard(index)}
-                  className={handleChosen(board)}
+                  // className={handleChosen(board)}
+                  className={`list-board ${
+                    board.name === props.copy[props.currentBoard].name &&
+                    "active"
+                  }`}
                 >
                   <img src={boardImg} alt="board" />
                   {board.name}
                 </div>
               ))}
-              <div className="list-board blue">
+              <div
+                className="list-board blue"
+                onClick={() => props.setIsModalOpen("add_new_board")}
+              >
                 <img src={boardImg} alt="board" />+ Create New Board
               </div>
             </div>
@@ -46,9 +53,9 @@ const Layout = (props: Props) => {
         </div>
 
         <div className="header">
-          <h1>{props.boards[props.currentBoard].name}</h1>
+          <h1>{props.copy[props.currentBoard].name}</h1>
           <div>
-            <button onClick={() => props.setIsModalOpen(true)}>
+            <button onClick={() => props.setIsModalOpen("add_new_task")}>
               + Add New Task
             </button>
             <img src={dots} alt="dots" />

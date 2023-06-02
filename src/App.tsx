@@ -7,17 +7,26 @@ import Modal from "./components/forms/Modal";
 import { ITasks } from "./types/boards";
 
 function App() {
+  // index for choosing currentColumns from the copy array
   const [currentBoard, setCurrentBoard] = useState<number>(0);
+
   const [boards, setBoards] = useState({});
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  // current columns
+  const [currentColumns, setCurrentColumns] = useState({});
+
+  // this is the data that we modify
+  const [copy, setCopy] = useState([...data.boards]);
+
+  // Set modal status
+  const [isModalOpen, setIsModalOpen] = useState<boolean | string>(false);
   const [selectedTask, setSelectedTask] = useState<ITasks>();
   console.log("isModalOpen", isModalOpen);
 
   // console.log("BOards", boards);
 
   useEffect(() => {
-    setBoards({
-      ...data.boards[currentBoard].columns,
+    setCurrentColumns({
+      ...copy[currentBoard].columns,
     });
   }, [currentBoard]);
 
@@ -25,20 +34,23 @@ function App() {
     <>
       {isModalOpen && (
         <Modal
+          isModalOpen={isModalOpen}
           setIsModalOpen={setIsModalOpen}
           setSelectedTask={setSelectedTask}
           selectedTask={selectedTask}
+          copy={copy}
+          // setCopy={setCopy}
         />
       )}
       <Layout
-        boards={data.boards}
+        copy={copy}
         setCurrentBoard={setCurrentBoard}
         currentBoard={currentBoard}
         setIsModalOpen={setIsModalOpen}
       >
         <Kanban
-          boards={boards}
-          setBoards={setBoards}
+          currentColumns={currentColumns}
+          setCurrentColumns={setCurrentColumns}
           currentBoard={currentBoard}
           setIsModalOpen={setIsModalOpen}
           setSelectedTask={setSelectedTask}

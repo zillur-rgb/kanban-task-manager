@@ -40,6 +40,8 @@
   color: #828fa3;
   font-size: 12px;
   margin-bottom: 24px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .add-new-column {
@@ -108,6 +110,15 @@
   color: #635fc7;
 }
 
+.list-board:hover img {
+  filter: invert(100%) sepia(97%) saturate(1589%) hue-rotate(221deg)
+    brightness(81%) contrast(110%);
+}
+
+.blue-board {
+  filter: invert(100%) sepia(97%) saturate(1589%) hue-rotate(221deg)
+    brightness(81%) contrast(110%);
+}
 .sidebar-boards h4 {
   font-weight: bold;
   color: #828fa3;
@@ -119,6 +130,10 @@
 
 .active {
   background-color: #635fc7;
+}
+
+.active img {
+  filter: brightness(0) invert(1);
 }
 
 .blue {
