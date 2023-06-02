@@ -10,7 +10,7 @@ function App() {
   // index for choosing currentColumns from the copy array
   const [currentBoard, setCurrentBoard] = useState<number>(0);
 
-  const [boards, setBoards] = useState({});
+  // const [boards, setBoards] = useState({});
   // current columns
   const [currentColumns, setCurrentColumns] = useState({});
 
@@ -39,7 +39,7 @@ function App() {
           setSelectedTask={setSelectedTask}
           selectedTask={selectedTask}
           copy={copy}
-          // setCopy={setCopy}
+          setCopy={setCopy}
         />
       )}
       <Layout

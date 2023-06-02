@@ -11,6 +11,7 @@ type Props = {
   selectedTask: any;
   setSelectedTask: any;
   copy: any;
+  setCopy: any;
 };
 
 const Modal = ({
@@ -19,6 +20,7 @@ const Modal = ({
   selectedTask,
   setSelectedTask,
   copy,
+  setCopy,
 }: Props) => {
   const ref = useRef(null);
 
@@ -36,7 +38,9 @@ const Modal = ({
           <AddNewTaskForm setIsModalOpen={setIsModalOpen} />
         )}
 
-        {isModalOpen === "add_new_board" && <NewBoard />}
+        {isModalOpen === "add_new_board" && (
+          <NewBoard copy={copy} setCopy={setCopy} />
+        )}
       </div>
     </div>
   );
