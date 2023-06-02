@@ -2,7 +2,7 @@ import AddNewTaskForm from "./AddNewTaskForm";
 import "../../styles/modal.css";
 import { useRef } from "react";
 import { useClickAway } from "react-use";
-import ViewTask from "../ViewTask";
+import ViewTask from "../operations/ViewTask";
 import NewBoard from "./NewBoard";
 
 type Props = {
@@ -10,8 +10,6 @@ type Props = {
   setIsModalOpen: any;
   selectedTask: any;
   setSelectedTask: any;
-  copy: any;
-  setCopy: any;
 };
 
 const Modal = ({
@@ -19,8 +17,6 @@ const Modal = ({
   setIsModalOpen,
   selectedTask,
   setSelectedTask,
-  copy,
-  setCopy,
 }: Props) => {
   const ref = useRef(null);
 
@@ -39,7 +35,7 @@ const Modal = ({
         )}
 
         {isModalOpen === "add_new_board" && (
-          <NewBoard copy={copy} setCopy={setCopy} />
+          <NewBoard setIsModalOpen={setIsModalOpen} />
         )}
       </div>
     </div>

@@ -70,6 +70,18 @@
   color: #828fa3;
 }
 
+.view-task-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.view-task-title img {
+  cursor: pointer;
+}
+
 .view-task-content h4 {
   font-size: 13px;
 }

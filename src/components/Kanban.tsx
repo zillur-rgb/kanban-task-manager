@@ -5,7 +5,7 @@ type Props = {
   setCurrentColumns: (e: any) => void;
   currentBoard: number;
   setIsModalOpen: any;
-  setSelectedTask: (item: ITasks) => void;
+  setSelectedTask: (item: any, b: any) => void;
 };
 
 const Kanban = ({
@@ -90,7 +90,7 @@ const Kanban = ({
                           // {...provided.droppableProps}
                           ref={provided.innerRef}
                         >
-                          {column.tasks.map((item: ITasks, index: number) => {
+                          {column.tasks.map((item: any, index: number) => {
                             return (
                               <Draggable
                                 key={item.title}
@@ -102,7 +102,10 @@ const Kanban = ({
                                     <div
                                       onClick={() => {
                                         setIsModalOpen("view_task");
-                                        setSelectedTask(item);
+                                        setSelectedTask(
+                                          item,
+                                          (item.key = index)
+                                        );
                                       }}
                                       className="card"
                                       ref={provided.innerRef}

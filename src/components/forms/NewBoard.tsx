@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import cross from "../../assets/icon-cross.svg";
 import { Formik, Form, Field } from "formik";
+import { CopyContext } from "../../App";
 
 type Props = {
-  setCopy: any;
-  copy: any;
+  setIsModalOpen: (e: string | boolean) => void;
 };
-const NewBoard = ({ setCopy, copy }: Props) => {
-  console.log("Copy", copy);
-
+const NewBoard = ({ setIsModalOpen }: Props) => {
   const [columnAmount, setColumnAmount] = useState<number>(1);
+
+  const { setCopy } = useContext(CopyContext);
   return (
     <>
       <h1>Add New Board</h1>
@@ -22,6 +22,7 @@ const NewBoard = ({ setCopy, copy }: Props) => {
         onSubmit={(values: any) => {
           values.columns.map((col: any) => (col.tasks = []));
           setCopy((prevState: any) => [...prevState, values]);
+          setIsModalOpen(false);
         }}
       >
         <Form className="form">

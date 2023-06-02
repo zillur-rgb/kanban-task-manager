@@ -14,7 +14,7 @@ interface IInitialValues {
 }
 
 const AddNewTaskForm = ({ setIsModalOpen }: Props) => {
-  const [subTaskAmount, setSubTaskAmount] = useState<number>(2);
+  const [subTaskAmount, setSubTaskAmount] = useState<number>(1);
 
   const initialValues: IInitialValues = {
     title: "",
@@ -66,14 +66,21 @@ const AddNewTaskForm = ({ setIsModalOpen }: Props) => {
             ))}
 
             <button
-              className="new-subtask"
+              type="button"
+              className="button"
               onClick={() => setSubTaskAmount((prev) => (prev += 1))}
             >
               + Add New Subtask
             </button>
           </div>
 
-          <button type="submit">Submit</button>
+          <div className="field-wrapper">
+            <label htmlFor="status">Status</label>
+          </div>
+
+          <button type="submit" className="button submit">
+            Create Task
+          </button>
         </Form>
       </Formik>
     </>

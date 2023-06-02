@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import "./App.css";
 import Layout from "./components/Layout";
 import data from "./data.json";
 import Kanban from "./components/Kanban";
 import Modal from "./components/forms/Modal";
 import { ITasks } from "./types/boards";
+
+export const CopyContext: React.Context<any> = createContext(null);
 
 function App() {
   // index for choosing currentColumns from the copy array
@@ -19,7 +21,7 @@ function App() {
 
   // Set modal status
   const [isModalOpen, setIsModalOpen] = useState<boolean | string>(false);
-  const [selectedTask, setSelectedTask] = useState<ITasks>();
+  const [selectedTask, setSelectedTask] = useState();
   console.log("isModalOpen", isModalOpen);
 
   // console.log("BOards", boards);
@@ -31,32 +33,41 @@ function App() {
   }, [currentBoard]);
 
   return (
-    <>
-      {isModalOpen && (
-        <Modal
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
-          setSelectedTask={setSelectedTask}
-          selectedTask={selectedTask}
-          copy={copy}
-          setCopy={setCopy}
-        />
-      )}
-      <Layout
-        copy={copy}
-        setCurrentBoard={setCurrentBoard}
-        currentBoard={currentBoard}
-        setIsModalOpen={setIsModalOpen}
-      >
-        <Kanban
-          currentColumns={currentColumns}
-          setCurrentColumns={setCurrentColumns}
+    <CopyContext.Provider
+      value={{
+        copy,
+        setCopy,
+        currentColumns,
+        setCurrentColumns,
+      }}
+    >
+      <div>
+        {isModalOpen && (
+          <Modal
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            setSelectedTask={setSelectedTask}
+            selectedTask={selectedTask}
+            // copy={copy}
+            // setCopy={setCopy}
+          />
+        )}
+        <Layout
+          // copy={copy}
+          setCurrentBoard={setCurrentBoard}
           currentBoard={currentBoard}
           setIsModalOpen={setIsModalOpen}
-          setSelectedTask={setSelectedTask}
-        />
-      </Layout>
-    </>
+        >
+          <Kanban
+            currentColumns={currentColumns}
+            setCurrentColumns={setCurrentColumns}
+            currentBoard={currentBoard}
+            setIsModalOpen={setIsModalOpen}
+            setSelectedTask={setSelectedTask}
+          />
+        </Layout>
+      </div>
+    </CopyContext.Provider>
   );
 }
 
