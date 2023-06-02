@@ -7,10 +7,17 @@ type Props = {
   boards: any;
   setCurrentBoard: (index: number) => void;
   currentBoard: number;
-  setIsModalOpen: any;
+  setIsModalOpen: (modal: boolean) => void;
 };
 
 const Layout = (props: Props) => {
+  // Getitng which board is selected
+  const handleChosen = (item: { name: any }) => {
+    if (item.name === props.boards[props.currentBoard].name) {
+      return "list-board active";
+    }
+    return "list-board";
+  };
   return (
     <>
       <div className="container">
@@ -25,7 +32,7 @@ const Layout = (props: Props) => {
                 <div
                   key={index}
                   onClick={() => props.setCurrentBoard(index)}
-                  className="list-board"
+                  className={handleChosen(board)}
                 >
                   <img src={boardImg} alt="board" />
                   {board.name}

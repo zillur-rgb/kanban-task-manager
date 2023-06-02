@@ -80,13 +80,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-left: 20px;
   padding-top: 20px;
   font-size: 14px;
 }
 
 .logo {
   padding-top: 20px;
+  margin-left: 20px;
 }
 .sidebar-boards {
   font-weight: bold;
@@ -98,7 +98,14 @@
   align-items: center;
   gap: 14px;
   font-size: 15px;
-  padding: 14px 0px;
+  padding: 14px 20px;
+  border-radius: 0px 100px 100px 0px;
+  cursor: pointer;
+}
+
+.list-board:hover {
+  background: white;
+  color: #635fc7;
 }
 
 .sidebar-boards h4 {
@@ -106,6 +113,12 @@
   color: #828fa3;
   font-size: 12px;
   letter-spacing: 2px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+
+.active {
+  background-color: #635fc7;
 }
 
 .blue {
