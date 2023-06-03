@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const validationSchema = Yup.object().shape({
+export const validationSchemaTask = Yup.object().shape({
   title: Yup.string()
     .min(10, "Minimum 10 characters")
     .max(100, "Too long!")
@@ -10,4 +10,11 @@ export const validationSchema = Yup.object().shape({
     .max(250, "Too long!")
     .required("Can't be empty"),
   status: Yup.string().required("Cant be empty"),
+});
+
+export const validationSchemaBoard = Yup.object().shape({
+  name: Yup.string()
+    .min(10, "Minimum 10 charcters!")
+    .max(100, "Too long!")
+    .required("Can not be empty"),
 });

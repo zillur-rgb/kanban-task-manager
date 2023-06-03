@@ -160,3 +160,8 @@
 .current-status {
   margin-bottom: 8px;
 }
+.error-message {
+  color: #ea5555;
+  font-weight: normal;
+  font-size: 12px;
+}

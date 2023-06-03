@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
 import cross from "../../assets/icon-cross.svg";
-import { Field, Form, Formik, FormikProps } from "formik";
+import { ErrorMessage, Field, Form, Formik, FormikProps } from "formik";
 import "../../styles/form.css";
 import { CopyContext } from "../../App";
 import Dropdown from "./Dropdown";
+import { validationSchemaTask } from "../../lib/form-validation";
 
 type Props = {
   setIsModalOpen: any;
@@ -36,6 +37,7 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
       <h1>{isSelectedTask ? "Add New Task" : "Edit Task"}</h1>
       <Formik
         initialValues={initialValues}
+        validationSchema={validationSchemaTask}
         onSubmit={(values) => {
           // add isCompleted property to all subtasks
           values.subtasks.map((task: any) => (task.isCompleted = false));
@@ -66,6 +68,16 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
                 className="input"
                 name="title"
                 placeholder="e.g. Take coffee break"
+                style={
+                  values.errors.title && values.touched.title === true
+                    ? { outline: "1px solid red" }
+                    : null
+                }
+              />
+              <ErrorMessage
+                name="title"
+                component={"div"}
+                className="error-message"
               />
             </div>
 
@@ -76,6 +88,18 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
                 as="textarea"
                 placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
                 className="input textarea"
+                style={
+                  values.errors.description &&
+                  values.touched.description === true
+                    ? { outline: "1px solid red" }
+                    : null
+                }
+              />
+
+              <ErrorMessage
+                name="description"
+                component="div"
+                className="error-message"
               />
             </div>
 
@@ -116,6 +140,17 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
                 name="status"
                 onClick={() => setIsOpen(true)}
                 autocomplete="off"
+                style={
+                  values.errors.status && values.touched.status === true
+                    ? { outline: "1px solid red" }
+                    : null
+                }
+              />
+
+              <ErrorMessage
+                name="status"
+                component="div"
+                className="error-message"
               />
 
               <Dropdown
