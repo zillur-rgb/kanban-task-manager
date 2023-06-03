@@ -97,7 +97,7 @@ const AddNewTaskForm = ({ setIsModalOpen }: Props) => {
               </button>
             </div>
 
-            <div className="field-wrapper">
+            <div className="field-wrapper parent">
               <label htmlFor="status">Status</label>
               <Field
                 className="input"

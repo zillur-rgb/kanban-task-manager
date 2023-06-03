@@ -7,12 +7,12 @@ type Props = {
 };
 
 const Dropdown = ({ currentColumns, name }: Props) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   const [, , helpers] = useField(name);
 
   const { setValue } = helpers;
   return (
-    <div className="input" onClick={() => setIsOpen((prev) => !prev)}>
+    <div className="status-list" onClick={() => setIsOpen((prev) => !prev)}>
       {isOpen &&
         Object.values(currentColumns).map((column: any) => {
           return <div onClick={() => setValue(column.name)}>{column.name}</div>;

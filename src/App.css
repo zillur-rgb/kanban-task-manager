@@ -5,6 +5,9 @@
   color: white;
 }
 
+body {
+  background: #20212c;
+}
 .Kanban {
   display: flex;
   justify-content: space-evenly;

@@ -10,6 +10,10 @@
   gap: 10px;
 }
 
+.parent {
+  position: relative;
+}
+
 .field-wrapper label {
   font-size: 12px;
 }
@@ -46,19 +50,8 @@
   font-size: 13px;
   font-weight: bold;
   border: none;
-  cursor: pointer;
 }
 
-.button:hover {
-  opacity: 0.8;
-}
-
-.remove-subtask {
-  cursor: pointer;
-}
-.remove-subtask:hover {
-  opacity: 0.8;
-}
 .submit {
   background: #635fc7;
   color: white;
@@ -127,4 +120,23 @@
   gap: 20px;
   margin: 8px 0px;
   border-radius: 4px;
+}
+
+.status-list {
+  font-size: 13px;
+  position: absolute;
+  width: 100%;
+  padding: 16px;
+  background: #20212c;
+  bottom: -140px;
+  border-radius: 8px;
+}
+
+.status-list div {
+  color: #828fa3 !important;
+  padding: 8px 0px;
+}
+
+.current-status {
+  margin-bottom: 8px;
 }
