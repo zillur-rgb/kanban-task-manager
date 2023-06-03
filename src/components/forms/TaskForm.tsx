@@ -62,7 +62,11 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
           <Form className="form">
             <div className="field-wrapper">
               <label htmlFor="title">Title</label>
-              <Field className="input" name="title" />
+              <Field
+                className="input"
+                name="title"
+                placeholder="e.g. Take coffee break"
+              />
             </div>
 
             <div className="field-wrapper">
@@ -70,6 +74,7 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
               <Field
                 name="description"
                 as="textarea"
+                placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
                 className="input textarea"
               />
             </div>
@@ -82,6 +87,7 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
                     placeholder="e.g. Complete wireframe"
                     name={`subtasks[${index}].title`}
                     className="input"
+                    autocomplete="off"
                   />
 
                   <img
@@ -109,6 +115,7 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
                 value={values.values.status}
                 name="status"
                 onClick={() => setIsOpen(true)}
+                autocomplete="off"
               />
 
               <Dropdown

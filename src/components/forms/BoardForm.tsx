@@ -6,7 +6,7 @@ import { CopyContext } from "../../App";
 type Props = {
   setIsModalOpen: (e: string | boolean) => void;
 };
-const NewBoard = ({ setIsModalOpen }: Props) => {
+const BoardForm = ({ setIsModalOpen }: Props) => {
   const [columnAmount, setColumnAmount] = useState<number>(1);
 
   const { setCopy } = useContext(CopyContext);
@@ -67,4 +67,4 @@ const NewBoard = ({ setIsModalOpen }: Props) => {
   );
 };
 
-export default NewBoard;
+export default BoardForm;

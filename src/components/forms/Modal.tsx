@@ -2,9 +2,9 @@ import "../../styles/modal.css";
 import { useRef } from "react";
 import { useClickAway } from "react-use";
 import ViewTask from "../operations/ViewTask";
-import NewBoard from "./NewBoard";
 import Delete from "../operations/Delete";
 import TaskForm from "./TaskForm";
+import BoardForm from "./BoardForm";
 
 type Props = {
   isModalOpen: boolean | string;
@@ -39,7 +39,7 @@ const Modal = ({
         )}
 
         {isModalOpen === "add_new_board" && (
-          <NewBoard setIsModalOpen={setIsModalOpen} />
+          <BoardForm setIsModalOpen={setIsModalOpen} />
         )}
 
         {isModalOpen === "delete" && (
