@@ -20,11 +20,17 @@ const Delete = ({ selectedTask, setIsModalOpen }: Props) => {
 
   const boardDeletion = `Are you sure you want to delete the '${copy[currentBoard].name}'? This action will remove all columns and tasks and cannot be undone!`;
 
-  const taskDeletion = `Are you sure you want to delete the '${selectedTask.title}' tasks and its subtasks? This action cannot be undone!`;
+  // TODO: Check why selectedTask is empty
+  const taskDeletion = `Are you sure you want to delete the '${
+    selectedTask ? selectedTask.title : "title"
+  }' tasks and its subtasks? This action cannot be undone!`;
 
   // check if are removing task or board, if we have selectedTask its a task
+  // TODO: Check why selectedTask is empty
   const isTaskOrBoard =
-    Object.entries(selectedTask).length !== 0 ? "task" : "board";
+    selectedTask && Object.entries(selectedTask).length !== 0
+      ? "task"
+      : "board";
 
   const handleDelete = () => {
     if (isTaskOrBoard === "task") {
@@ -50,10 +56,9 @@ const Delete = ({ selectedTask, setIsModalOpen }: Props) => {
 
     if (isTaskOrBoard === "board") {
       // When we have a board
-      setCopy((prev: any[]) =>
-        prev.filter((board: any) => board.name !== copy[currentBoard].name)
+      setCopy(
+        copy.filter((board: any) => board.name !== copy[currentBoard].name)
       );
-
       setCurrentBoard(0);
     }
     setIsModalOpen(false);
@@ -62,15 +67,8 @@ const Delete = ({ selectedTask, setIsModalOpen }: Props) => {
 
   return (
     <div className="delete-modal">
-      <h1>
-        Delete this{" "}
-        {Object.entries(selectedTask).length !== 0 ? "Task" : "Board"}?
-      </h1>
-      <p>
-        {Object.entries(selectedTask).length !== 0
-          ? taskDeletion
-          : boardDeletion}
-      </p>
+      <h1>Delete this {isTaskOrBoard === "task" ? "Task" : "Board"}</h1>
+      <p>{isTaskOrBoard === "task" ? taskDeletion : boardDeletion}</p>
 
       <div>
         <button className="button red" onClick={handleDelete}>
