@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { CopyContext } from "../App";
 import { IBoards } from "../types/boards";
 import SmallDropdown from "./operations/SmallDropdown";
+import hidebar from "../assets/icon-hide-sidebar.svg";
 
 type Props = {
   children: React.ReactNode;
@@ -28,32 +29,37 @@ const Layout = (props: Props) => {
     <>
       <div className="container">
         <div className="sidebar">
-          <img src={Logo} alt="Logo" className="logo" />
+          <div>
+            <img src={Logo} alt="Logo" className="logo" />
 
-          <div className="sidebar-boards">
-            <h4>All Boards({copy.length})</h4>
+            <div className="sidebar-boards">
+              <h4>All Boards({copy.length})</h4>
 
-            <div>
-              {copy.map((board: IBoards, index: number) => (
+              <div>
+                {copy.map((board: IBoards, index: number) => (
+                  <div
+                    key={board.name}
+                    onClick={() => props.setCurrentBoard(index)}
+                    // className={handleChosen(board)}
+                    className={`list-board ${
+                      board.name === copy[props.currentBoard].name && "active"
+                    }`}
+                  >
+                    <img src={boardImg} alt="board" />
+                    {board.name}
+                  </div>
+                ))}
                 <div
-                  key={board.name}
-                  onClick={() => props.setCurrentBoard(index)}
-                  // className={handleChosen(board)}
-                  className={`list-board ${
-                    board.name === copy[props.currentBoard].name && "active"
-                  }`}
+                  className="list-board blue"
+                  onClick={() => props.setIsModalOpen("add_new_board")}
                 >
-                  <img src={boardImg} alt="board" />
-                  {board.name}
+                  <img src={boardImg} alt="board" />+ Create New Board
                 </div>
-              ))}
-              <div
-                className="list-board blue"
-                onClick={() => props.setIsModalOpen("add_new_board")}
-              >
-                <img src={boardImg} alt="board" />+ Create New Board
               </div>
             </div>
+          </div>
+          <div className="list-board">
+            <img src={hidebar} alt="eyes-closed" /> Hide Sidebar
           </div>
         </div>
 

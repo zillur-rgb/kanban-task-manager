@@ -67,6 +67,9 @@ const Kanban = ({
     });
   };
 
+  let randomColorGenerator = () =>
+    Math.floor(Math.random() * 16777215).toString(16);
+
   return (
     <div className="Kanban">
       <DragDropContext
@@ -77,60 +80,82 @@ const Kanban = ({
           ([columnId, column]: [string, any]) => {
             return (
               <div key={columnId}>
-                <div>
-                  <h4 className="column-name">
-                    {column.name} ({column.tasks.length})
-                  </h4>
-                  <Droppable droppableId={columnId} key={columnId}>
-                    {(provided) => {
-                      return (
-                        <div
-                          className="column"
-                          // {...provided.droppableProps}
-                          ref={provided.innerRef}
-                        >
-                          {column.tasks.map((item: any, index: number) => {
-                            return (
-                              <Draggable
-                                key={item.title}
-                                draggableId={item.title}
-                                index={index}
-                              >
-                                {(provided, snapshot) => {
-                                  return (
-                                    <div
-                                      onClick={() => {
-                                        setIsModalOpen("view_task");
-                                        setSelectedTask(
-                                          item,
-                                          (item.key = columnId)
-                                        );
-                                      }}
-                                      className="card"
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                      style={{
-                                        backgroundColor: snapshot.isDragging
-                                          ? "#263B4A"
-                                          : "#2B2C37",
-                                        ...provided.draggableProps.style,
-                                      }}
-                                    >
-                                      <h4>{item.title}</h4>
-                                      <p>Subtasks</p>
-                                    </div>
-                                  );
-                                }}
-                              </Draggable>
-                            );
-                          })}
-                          {provided.placeholder}
-                        </div>
-                      );
-                    }}
-                  </Droppable>
-                </div>
+                <>
+                  <div className="column-name-wrapper">
+                    <div className="column-header">
+                      <div
+                        style={{
+                          width: 15,
+                          height: 15,
+                          borderRadius: 50,
+                          backgroundColor: `#${randomColorGenerator()}`,
+                        }}
+                      ></div>
+
+                      <h4 className="column-name">
+                        {column.name} ({column.tasks.length})
+                      </h4>
+                    </div>
+                    <Droppable droppableId={columnId} key={columnId}>
+                      {(provided) => {
+                        return (
+                          <div
+                            className="column"
+                            // {...provided.droppableProps}
+                            ref={provided.innerRef}
+                          >
+                            {column.tasks.map((item: any, index: number) => {
+                              return (
+                                <Draggable
+                                  key={item.title}
+                                  draggableId={item.title}
+                                  index={index}
+                                >
+                                  {(provided, snapshot) => {
+                                    return (
+                                      <div
+                                        onClick={() => {
+                                          setIsModalOpen("view_task");
+                                          setSelectedTask(
+                                            item,
+                                            (item.key = columnId)
+                                          );
+                                        }}
+                                        className="card"
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        style={{
+                                          backgroundColor: snapshot.isDragging
+                                            ? "#263B4A"
+                                            : "#2B2C37",
+                                          ...provided.draggableProps.style,
+                                        }}
+                                      >
+                                        <h4>{item.title}</h4>
+                                        <p>
+                                          {
+                                            item.subtasks.filter(
+                                              (item: any) =>
+                                                item.isCompleted === true
+                                            ).length
+                                          }{" "}
+                                          of {item.subtasks.length}
+                                          Subtasks
+                                        </p>
+                                      </div>
+                                    );
+                                  }}
+                                </Draggable>
+                              );
+                            })}
+                            {provided.placeholder}
+                          </div>
+                        );
+                      }}
+                    </Droppable>
+                  </div>
+                </>
               </div>
             );
           }
