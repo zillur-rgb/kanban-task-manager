@@ -1,29 +1,22 @@
-import { useContext, useRef } from "react";
-
-import { CopyContext } from "../../App";
+import { useRef } from "react";
 import { useClickAway } from "react-use";
 import "../../styles/dropdown.css";
 
 type Props = {
   name: string;
   setShowDropDown: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedTask: any;
+  selectedTask?: any;
   setIsModalOpen: any;
 };
 
-const SmallDropdown = ({
-  name,
-  setShowDropDown,
-  selectedTask,
-  setIsModalOpen,
-}: Props) => {
-  const { currentColumns } = useContext(CopyContext);
-
+const SmallDropdown = ({ name, setShowDropDown, setIsModalOpen }: Props) => {
   const ref = useRef(null);
 
   useClickAway(ref, () => {
     setShowDropDown(false);
   });
+
+  console.log("Hello hello");
 
   const handleDelete = () => {
     // first find the column that the current selectedTask lives in
@@ -40,7 +33,10 @@ const SmallDropdown = ({
     setIsModalOpen("delete");
   };
   return (
-    <div className="small-dp-container" ref={ref}>
+    <div
+      className={`small-dp-container ${name === "Board" && "board"}`}
+      ref={ref}
+    >
       <div>Edit {name}</div>
       <div onClick={handleDelete}>Delete {name}</div>
     </div>

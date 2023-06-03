@@ -4,7 +4,6 @@ import Layout from "./components/Layout";
 import data from "./data.json";
 import Kanban from "./components/Kanban";
 import Modal from "./components/forms/Modal";
-import { ITasks } from "./types/boards";
 
 export const CopyContext: React.Context<any> = createContext(null);
 
@@ -39,6 +38,12 @@ function App() {
         setCopy,
         currentColumns,
         setCurrentColumns,
+        currentBoard,
+        setCurrentBoard,
+        selectedTask,
+        setSelectedTask,
+        isModalOpen,
+        setIsModalOpen,
       }}
     >
       <div>

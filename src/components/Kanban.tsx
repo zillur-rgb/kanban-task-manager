@@ -1,5 +1,4 @@
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { ITasks } from "../types/boards";
 type Props = {
   currentColumns: any;
   setCurrentColumns: (e: any) => void;
@@ -104,7 +103,7 @@ const Kanban = ({
                                         setIsModalOpen("view_task");
                                         setSelectedTask(
                                           item,
-                                          (item.key = index)
+                                          (item.key = columnId)
                                         );
                                       }}
                                       className="card"

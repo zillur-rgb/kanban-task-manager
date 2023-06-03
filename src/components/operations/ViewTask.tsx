@@ -69,7 +69,12 @@ const ViewTask = ({ selectedTask, setIsModalOpen }: Props) => {
 
       <div>
         <h4 className="current-status"></h4>
-        <input value={selectedTask.status} type="text" className="input" />
+        <input
+          value={selectedTask.status}
+          type="text"
+          className="input"
+          readOnly
+        />
       </div>
     </div>
   );

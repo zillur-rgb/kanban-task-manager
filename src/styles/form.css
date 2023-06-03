@@ -28,6 +28,11 @@
   outline: none;
   font-weight: normal;
   font-size: 13px;
+  cursor: pointer;
+}
+
+.input:focus {
+  border: 1px solid #635fc7;
 }
 
 .textarea {
@@ -84,6 +89,7 @@
 
 .view-task-title img {
   cursor: pointer;
+  padding: 5px;
 }
 
 .view-task-content h4 {
@@ -120,6 +126,11 @@
   gap: 20px;
   margin: 8px 0px;
   border-radius: 4px;
+  cursor: pointer;
+}
+
+.subtask:hover {
+  background: #625fc74e;
 }
 
 .status-list {
@@ -135,8 +146,13 @@
 .status-list div {
   color: #828fa3 !important;
   padding: 8px 0px;
+  font-weight: normal;
+  cursor: pointer;
 }
 
+.status-list div:hover {
+  color: #635fc7 !important;
+}
 .current-status {
   margin-bottom: 8px;
 }

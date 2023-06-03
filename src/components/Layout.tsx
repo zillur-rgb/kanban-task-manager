@@ -1,8 +1,10 @@
 import Logo from "../assets/logo-light.svg";
 import dots from "../assets/icon-vertical-ellipsis.svg";
 import boardImg from "../assets/icon-board.svg";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CopyContext } from "../App";
+import { IBoards } from "../types/boards";
+import SmallDropdown from "./operations/SmallDropdown";
 
 type Props = {
   children: React.ReactNode;
@@ -20,6 +22,8 @@ const Layout = (props: Props) => {
   //   return "list-board";
   // };
   const { copy } = useContext(CopyContext);
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+
   return (
     <>
       <div className="container">
@@ -30,9 +34,9 @@ const Layout = (props: Props) => {
             <h4>All Boards({copy.length})</h4>
 
             <div>
-              {copy.map((board: any, index: number) => (
+              {copy.map((board: IBoards, index: number) => (
                 <div
-                  key={index}
+                  key={board.name}
                   onClick={() => props.setCurrentBoard(index)}
                   // className={handleChosen(board)}
                   className={`list-board ${
@@ -59,7 +63,20 @@ const Layout = (props: Props) => {
             <button onClick={() => props.setIsModalOpen("add_new_task")}>
               + Add New Task
             </button>
-            <img src={dots} alt="dots" />
+            <img
+              src={dots}
+              alt="dots"
+              className="dots vertically"
+              onClick={() => setShowDropdown(true)}
+            />
+
+            {showDropdown && (
+              <SmallDropdown
+                setShowDropDown={setShowDropdown}
+                name="Board"
+                setIsModalOpen={props.setIsModalOpen}
+              />
+            )}
           </div>
         </div>
         <main className="test">{props.children}</main>
