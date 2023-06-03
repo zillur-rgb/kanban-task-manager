@@ -5,6 +5,7 @@ import "../../styles/form.css";
 import { CopyContext } from "../../App";
 import Dropdown from "./Dropdown";
 import { validationSchemaTask } from "../../lib/form-validation";
+import { ISubtasks } from "../../types/boards";
 
 type Props = {
   setIsModalOpen: any;
@@ -39,24 +40,39 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
         initialValues={initialValues}
         validationSchema={validationSchemaTask}
         onSubmit={(values) => {
-          // add isCompleted property to all subtasks
-          values.subtasks.map((task: any) => (task.isCompleted = false));
-
-          // find the index of the array that we adding to
+          // Get the index of the array that we modify
           let index = Object.entries(currentColumns).findIndex(
             ([id, column]: [string, any]) => column.name === values.status && id
           );
-          // copy the old tasks and add a new task into a new array
-          let newTasksArray = [...currentColumns[index].tasks, { ...values }];
 
-          // replace the currentColumns[index] so eg "Todos" array. With the newTaskArrays
-          setCurrentColumns({
-            ...currentColumns,
-            [index]: {
-              ...currentColumns[index],
-              tasks: newTasksArray,
-            },
-          });
+          if (isSelectedTask) {
+            // add isCompleted property to all subtasks
+            values.subtasks.map((task: any) => task.isCompleted === false);
+            // copy the old tasks and add a new task into a new array
+            let newTasksArray = [...currentColumns[index].tasks, { ...values }];
+            // replace the currentColumns[index] so eg "Todos" array. With the newTaskArrays
+            setCurrentColumns({
+              ...currentColumns,
+              [index]: {
+                ...currentColumns[index],
+                tasks: newTasksArray,
+              },
+            });
+          } else {
+            // Find the one that we will edit and replace it
+            const updatedArray = currentColumns[index].tasks.map((task: any) =>
+              task.index === selectedTask.index ? { ...values } : task
+            );
+
+            setCurrentColumns({
+              ...currentColumns,
+              [index]: {
+                ...currentColumns[index],
+                tasks: updatedArray,
+              },
+            });
+          }
+
           setIsModalOpen(false);
         }}
       >
@@ -105,23 +121,44 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
 
             <div className="field-wrapper">
               <label htmlFor="subtasks">Subtasks</label>
-              {Array.from(Array(subTaskAmount)).map((_, index) => (
-                <div className="subtask-item" key={index}>
-                  <Field
-                    placeholder="e.g. Complete wireframe"
-                    name={`subtasks[${index}].title`}
-                    className="input"
-                    autocomplete="off"
-                  />
 
-                  <img
-                    src={cross}
-                    alt="remove"
-                    onClick={() => setSubTaskAmount((prev) => (prev -= 1))}
-                    className="remove-subtask"
-                  />
-                </div>
-              ))}
+              {/* If we edit a task */}
+              {!isSelectedTask &&
+                values.values.subtasks.map((item: any, index: number) => (
+                  <div className="subtask-item" key={index}>
+                    <Field
+                      placeholder="e.g Make coffee"
+                      name={`subtasks[${index}].title`}
+                      className="input"
+                      autocomplete="off"
+                    />
+
+                    <img
+                      src={cross}
+                      alt="cross"
+                      onClick={() => console.log(item)}
+                    />
+                  </div>
+                ))}
+              {/* If we add a new task */}
+              {isSelectedTask &&
+                Array.from(Array(subTaskAmount)).map((_, index) => (
+                  <div className="subtask-item" key={index}>
+                    <Field
+                      placeholder="e.g. Complete wireframe"
+                      name={`subtasks[${index}].title`}
+                      className="input"
+                      autocomplete="off"
+                    />
+
+                    <img
+                      src={cross}
+                      alt="remove"
+                      onClick={() => setSubTaskAmount((prev) => (prev -= 1))}
+                      className="remove-subtask"
+                    />
+                  </div>
+                ))}
 
               <button
                 type="button"

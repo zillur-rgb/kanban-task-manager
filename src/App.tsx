@@ -21,7 +21,6 @@ function App() {
   // Set modal status
   const [isModalOpen, setIsModalOpen] = useState<boolean | string>(false);
   const [selectedTask, setSelectedTask] = useState();
-  console.log("isModalOpen", isModalOpen);
 
   // console.log("BOards", boards);
 

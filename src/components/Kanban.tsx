@@ -4,7 +4,7 @@ type Props = {
   setCurrentColumns: (e: any) => void;
   currentBoard: number;
   setIsModalOpen: any;
-  setSelectedTask: (item: any, b: any) => void;
+  setSelectedTask: any;
 };
 
 const Kanban = ({
@@ -118,7 +118,9 @@ const Kanban = ({
                                           setIsModalOpen("view_task");
                                           setSelectedTask(
                                             item,
-                                            (item.key = columnId)
+                                            (item.key = columnId),
+                                            (item.status = column.name),
+                                            (item.index = index)
                                           );
                                         }}
                                         className="card"
