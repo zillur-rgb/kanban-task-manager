@@ -127,7 +127,7 @@ const Kanban = ({
                                         {...provided.dragHandleProps}
                                         style={{
                                           backgroundColor: snapshot.isDragging
-                                            ? "#263B4A"
+                                            ? "#635fc750"
                                             : "#2B2C37",
                                           ...provided.draggableProps.style,
                                         }}

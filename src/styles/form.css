@@ -62,6 +62,10 @@
   color: white;
 }
 
+.submit:hover {
+  background-color: #a8a4ff;
+}
+
 /* VIEW TASK */
 
 .view-task-content {

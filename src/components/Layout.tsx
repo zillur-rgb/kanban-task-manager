@@ -33,7 +33,7 @@ const Layout = (props: Props) => {
             <img src={Logo} alt="Logo" className="logo" />
 
             <div className="sidebar-boards">
-              <h4>All Boards({copy.length})</h4>
+              <h4>ALL BOARDS({copy.length})</h4>
 
               <div>
                 {copy.map((board: IBoards, index: number) => (
@@ -66,7 +66,7 @@ const Layout = (props: Props) => {
         <div className="header">
           <h1>{copy[props.currentBoard].name}</h1>
           <div>
-            <button onClick={() => props.setIsModalOpen("add_new_task")}>
+            <button onClick={() => props.setIsModalOpen("task_form")}>
               + Add New Task
             </button>
             <img

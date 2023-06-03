@@ -2,21 +2,29 @@
   position: absolute;
   z-index: 100;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: #0000007b;
   mix-blend-mode: normal;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .modal {
   border-radius: 6px;
   padding: 32px;
   width: 480px;
-  height: auto;
+  max-height: 95vh;
   background: #2b2c37;
   font-weight: bold;
+  overflow: scroll;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+.modal::-webkit-scrollbar {
+  display: none; /* Safari and Chrome*/
 }
 
 .modal h1 {
