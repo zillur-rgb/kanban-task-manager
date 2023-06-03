@@ -5,7 +5,6 @@ import "../../styles/form.css";
 import { CopyContext } from "../../App";
 import Dropdown from "./Dropdown";
 import { validationSchemaTask } from "../../lib/form-validation";
-import { ISubtasks } from "../../types/boards";
 
 type Props = {
   setIsModalOpen: any;

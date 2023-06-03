@@ -16,19 +16,25 @@ const SmallDropdown = ({ name, setShowDropDown, setIsModalOpen }: Props) => {
     setShowDropDown(false);
   });
 
-  console.log("Hello hello");
-
   const handleDelete = () => {
     setIsModalOpen("delete");
+  };
+
+  const handleEdit = () => {
+    if (name === "Task") {
+      setIsModalOpen("task_form");
+    } else {
+      setIsModalOpen("add_new_board");
+    }
+
+    setShowDropDown(false);
   };
   return (
     <div
       className={`small-dp-container ${name === "Board" && "board"}`}
       ref={ref}
     >
-      <div onClick={() => name === "Task" && setIsModalOpen("task_form")}>
-        Edit {name}
-      </div>
+      <div onClick={handleEdit}>Edit {name}</div>
       <div onClick={handleDelete}>Delete {name}</div>
     </div>
   );
