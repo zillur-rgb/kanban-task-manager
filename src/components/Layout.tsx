@@ -6,6 +6,7 @@ import { CopyContext } from "../App";
 import { IBoards } from "../types/boards";
 import SmallDropdown from "./operations/SmallDropdown";
 import hidebar from "../assets/icon-hide-sidebar.svg";
+import showBar from "../assets/icon-show-sidebar.svg";
 
 type Props = {
   children: React.ReactNode;
@@ -25,47 +26,56 @@ const Layout = (props: Props) => {
   const { copy } = useContext(CopyContext);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
+  const [showSidebar, setShowSidebar] = useState<boolean>(true);
+
   return (
     <>
       <div className="container">
-        <div className="sidebar">
-          <div>
-            <img src={Logo} alt="Logo" className="logo" />
+        {showSidebar && (
+          <div className="sidebar">
+            <div>
+              <img src={Logo} alt="Logo" className="logo" />
 
-            <div className="sidebar-boards">
-              <h4>ALL BOARDS({copy.length})</h4>
+              <div className="sidebar-boards">
+                <h4>ALL BOARDS({copy.length})</h4>
 
-              <div>
-                {copy.map((board: IBoards, index: number) => (
+                <div>
+                  {copy.map((board: IBoards, index: number) => (
+                    <div
+                      key={board.name}
+                      onClick={() => props.setCurrentBoard(index)}
+                      // className={handleChosen(board)}
+                      className={`list-board ${
+                        board.name === copy[props.currentBoard].name
+                          ? "active"
+                          : ""
+                      }`}
+                    >
+                      <img src={boardImg} alt="board" />
+                      {board.name}
+                    </div>
+                  ))}
                   <div
-                    key={board.name}
-                    onClick={() => props.setCurrentBoard(index)}
-                    // className={handleChosen(board)}
-                    className={`list-board ${
-                      board.name === copy[props.currentBoard].name && "active"
-                    }`}
+                    className="list-board blue"
+                    onClick={() => props.setIsModalOpen("add_new_board")}
                   >
-                    <img src={boardImg} alt="board" />
-                    {board.name}
+                    <img src={boardImg} alt="board" />+ Create New Board
                   </div>
-                ))}
-                <div
-                  className="list-board blue"
-                  onClick={() => props.setIsModalOpen("add_new_board")}
-                >
-                  <img src={boardImg} alt="board" />+ Create New Board
                 </div>
               </div>
             </div>
+            <div className="list-board" onClick={() => setShowSidebar(false)}>
+              <img src={hidebar} alt="eyes-closed" /> Hide Sidebar
+            </div>
           </div>
-          <div className="list-board">
-            <img src={hidebar} alt="eyes-closed" /> Hide Sidebar
-          </div>
-        </div>
+        )}
 
-        <div className="header">
-          <h1>{copy[props.currentBoard].name}</h1>
-          <div>
+        <div className={showSidebar ? "header" : "header full"}>
+          {!showSidebar && <img src={Logo} alt="logo" className="logo" />}
+          <h1 className={!showSidebar ? "grow" : ""}>
+            {copy[props.currentBoard].name}
+          </h1>
+          <div className="parent">
             <button onClick={() => props.setIsModalOpen("task_form")}>
               + Add New Task
             </button>
@@ -85,7 +95,18 @@ const Layout = (props: Props) => {
             )}
           </div>
         </div>
-        <main className="test">{props.children}</main>
+
+        {!showSidebar && (
+          <div
+            onClick={() => setShowSidebar(true)}
+            className="list-board absolute"
+          >
+            <img src={showBar} alt="eye open" />
+          </div>
+        )}
+        <main className={showSidebar ? "test" : "test full"}>
+          {props.children}
+        </main>
       </div>
     </>
   );

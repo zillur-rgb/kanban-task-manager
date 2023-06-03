@@ -97,12 +97,21 @@ button {
 }
 
 .logo {
+  cursor: default !important;
   padding-top: 20px;
   margin-left: 20px;
 }
 .sidebar-boards {
   font-weight: bold;
   margin-top: 65px;
+}
+
+.absolute {
+  background: #635fc7;
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  z-index: 50;
 }
 
 .list-board {
@@ -155,7 +164,7 @@ button {
 
 .header {
   background-color: #2b2c37;
-  grid-row-start: 0;
+  /* grid-row-start: 0; */
   grid-column-start: 3;
 
   grid-row-end: 2;
@@ -165,6 +174,20 @@ button {
   align-items: center;
   padding: 0px 20px;
   justify-content: space-between;
+}
+
+.full {
+  grid-column-start: 1;
+}
+
+.grow {
+  flex-grow: 1;
+  padding-left: 30px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+  border-left: 1px solid #3e3f4e;
 }
 
 .header h1 {
@@ -201,6 +224,7 @@ button {
 }
 
 main {
+  position: relative;
   background-color: #20212c;
   grid-row-start: 2;
   grid-column-start: 3;
