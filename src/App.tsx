@@ -46,29 +46,9 @@ function App() {
       }}
     >
       <div>
-        {isModalOpen && (
-          <Modal
-            isModalOpen={isModalOpen}
-            setIsModalOpen={setIsModalOpen}
-            setSelectedTask={setSelectedTask}
-            selectedTask={selectedTask}
-            // copy={copy}
-            // setCopy={setCopy}
-          />
-        )}
-        <Layout
-          // copy={copy}
-          setCurrentBoard={setCurrentBoard}
-          currentBoard={currentBoard}
-          setIsModalOpen={setIsModalOpen}
-        >
-          <Kanban
-            currentColumns={currentColumns}
-            setCurrentColumns={setCurrentColumns}
-            currentBoard={currentBoard}
-            setIsModalOpen={setIsModalOpen}
-            setSelectedTask={setSelectedTask}
-          />
+        {isModalOpen && <Modal />}
+        <Layout>
+          <Kanban />
         </Layout>
       </div>
     </CopyContext.Provider>

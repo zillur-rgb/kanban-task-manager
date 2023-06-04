@@ -1,6 +1,13 @@
 import { useContext, useState } from "react";
 import cross from "../../assets/icon-cross.svg";
-import { ErrorMessage, Field, Form, Formik, FormikProps } from "formik";
+import {
+  ErrorMessage,
+  Field,
+  FieldArray,
+  Form,
+  Formik,
+  FormikProps,
+} from "formik";
 import "../../styles/form.css";
 import { CopyContext } from "../../App";
 import Dropdown from "./Dropdown";
@@ -17,8 +24,6 @@ interface IInitialValues {
 }
 
 const TaskForm = ({ setIsModalOpen }: Props) => {
-  const [subTaskAmount, setSubTaskAmount] = useState<number>(1);
-
   const { currentColumns, setCurrentColumns, selectedTask } =
     useContext(CopyContext);
 
@@ -27,7 +32,7 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
   const initialValues: IInitialValues = {
     title: "" || selectedTask.title,
     description: "" || selectedTask.description,
-    subtasks: [] || selectedTask.subtasks,
+    subtasks: selectedTask.subtasks || [{ name: "" }],
     status: "Todo" || selectedTask.status,
   };
 
@@ -121,51 +126,35 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
             <div className="field-wrapper">
               <label htmlFor="subtasks">Subtasks</label>
 
-              {/* If we edit a task */}
-              {!isSelectedTask &&
-                values.values.subtasks.map((item: any, index: number) => (
-                  <div className="subtask-item" key={index}>
-                    <Field
-                      placeholder="e.g Make coffee"
-                      name={`subtasks[${index}].title`}
-                      className="input"
-                      autocomplete="off"
-                    />
-
-                    <img
-                      src={cross}
-                      alt="cross"
-                      onClick={() => console.log(item)}
-                    />
-                  </div>
-                ))}
-              {/* If we add a new task */}
-              {isSelectedTask &&
-                Array.from(Array(subTaskAmount)).map((_, index) => (
-                  <div className="subtask-item" key={index}>
-                    <Field
-                      placeholder="e.g. Complete wireframe"
-                      name={`subtasks[${index}].title`}
-                      className="input"
-                      autocomplete="off"
-                    />
-
-                    <img
-                      src={cross}
-                      alt="remove"
-                      onClick={() => setSubTaskAmount((prev) => (prev -= 1))}
-                      className="remove-subtask"
-                    />
-                  </div>
-                ))}
-
-              <button
-                type="button"
-                className="button"
-                onClick={() => setSubTaskAmount((prev) => (prev += 1))}
-              >
-                + Add New Subtask
-              </button>
+              <FieldArray
+                name="subtasks"
+                render={(arrayHelpers) => (
+                  <>
+                    {values.values.subtasks.map((__, index) => (
+                      <div className="subtask-item" key={index}>
+                        <Field
+                          placeholder="e.g. Make a coffee"
+                          name={`subtasks[${index}].title`}
+                          className="input"
+                          autocomplete="off"
+                        />
+                        <img
+                          src={cross}
+                          alt="remove"
+                          onClick={() => arrayHelpers.remove(index)}
+                        />
+                      </div>
+                    ))}
+                    <button
+                      className="button"
+                      type="button"
+                      onClick={() => arrayHelpers.push({ title: "" })}
+                    >
+                      # Add New Subtask
+                    </button>
+                  </>
+                )}
+              ></FieldArray>
             </div>
 
             <div className="field-wrapper parent">

@@ -1,18 +1,10 @@
+import { useContext } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-type Props = {
-  currentColumns: any;
-  setCurrentColumns: (e: any) => void;
-  currentBoard: number;
-  setIsModalOpen: any;
-  setSelectedTask: any;
-};
+import { CopyContext } from "../App";
 
-const Kanban = ({
-  currentColumns,
-  setCurrentColumns,
-  setIsModalOpen,
-  setSelectedTask,
-}: Props) => {
+const Kanban = () => {
+  const { currentColumns, setCurrentColumns, setSelectedTask, setIsModalOpen } =
+    useContext(CopyContext);
   const onDragEnd = (result: any, columns: any) => {
     if (!result.destination) return;
     console.log("currentColumns", currentColumns);

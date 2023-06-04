@@ -1,25 +1,17 @@
 import "../../styles/modal.css";
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { useClickAway } from "react-use";
 import ViewTask from "../operations/ViewTask";
 import Delete from "../operations/Delete";
 import TaskForm from "./TaskForm";
 import BoardForm from "./BoardForm";
+import { CopyContext } from "../../App";
 
-type Props = {
-  isModalOpen: boolean | string;
-  setIsModalOpen: any;
-  selectedTask: any;
-  setSelectedTask: any;
-};
-
-const Modal = ({
-  isModalOpen,
-  setIsModalOpen,
-  selectedTask,
-  setSelectedTask,
-}: Props) => {
+const Modal = () => {
   const ref = useRef(null);
+
+  const { selectedTask, setSelectedTask, isModalOpen, setIsModalOpen } =
+    useContext(CopyContext);
 
   useClickAway(ref, () => {
     setSelectedTask({});

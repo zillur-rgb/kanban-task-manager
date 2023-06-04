@@ -8,22 +8,9 @@ import SmallDropdown from "./operations/SmallDropdown";
 import hidebar from "../assets/icon-hide-sidebar.svg";
 import showBar from "../assets/icon-show-sidebar.svg";
 
-type Props = {
-  children: React.ReactNode;
-  setCurrentBoard: (index: number) => void;
-  currentBoard: number;
-  setIsModalOpen: (modal: boolean | string) => void;
-};
-
-const Layout = (props: Props) => {
-  // // Getting which board is selected
-  // const handleChosen = (item: { name: any }) => {
-  //   if (item.name === props.boards[props.currentBoard].name) {
-  //     return "list-board active";
-  //   }
-  //   return "list-board";
-  // };
-  const { copy } = useContext(CopyContext);
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  const { copy, currentBoard, setCurrentBoard, setIsModalOpen } =
+    useContext(CopyContext);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
@@ -43,12 +30,10 @@ const Layout = (props: Props) => {
                   {copy.map((board: IBoards, index: number) => (
                     <div
                       key={board.name}
-                      onClick={() => props.setCurrentBoard(index)}
+                      onClick={() => setCurrentBoard(index)}
                       // className={handleChosen(board)}
                       className={`list-board ${
-                        board.name === copy[props.currentBoard].name
-                          ? "active"
-                          : ""
+                        board.name === copy[currentBoard].name ? "active" : ""
                       }`}
                     >
                       <img src={boardImg} alt="board" />
@@ -57,7 +42,7 @@ const Layout = (props: Props) => {
                   ))}
                   <div
                     className="list-board blue"
-                    onClick={() => props.setIsModalOpen("add_new_board")}
+                    onClick={() => setIsModalOpen("add_new_board")}
                   >
                     <img src={boardImg} alt="board" />+ Create New Board
                   </div>
@@ -73,10 +58,10 @@ const Layout = (props: Props) => {
         <div className={showSidebar ? "header" : "header full"}>
           {!showSidebar && <img src={Logo} alt="logo" className="logo" />}
           <h1 className={!showSidebar ? "grow" : ""}>
-            {copy[props.currentBoard].name}
+            {copy[currentBoard].name}
           </h1>
           <div className="parent">
-            <button onClick={() => props.setIsModalOpen("task_form")}>
+            <button onClick={() => setIsModalOpen("task_form")}>
               + Add New Task
             </button>
             <img
@@ -90,7 +75,7 @@ const Layout = (props: Props) => {
               <SmallDropdown
                 setShowDropDown={setShowDropdown}
                 name="Board"
-                setIsModalOpen={props.setIsModalOpen}
+                setIsModalOpen={setIsModalOpen}
               />
             )}
           </div>
@@ -104,9 +89,7 @@ const Layout = (props: Props) => {
             <img src={showBar} alt="eye open" />
           </div>
         )}
-        <main className={showSidebar ? "test" : "test full"}>
-          {props.children}
-        </main>
+        <main className={showSidebar ? "test" : "test full"}>{children}</main>
       </div>
     </>
   );
