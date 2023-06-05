@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { CopyContext } from "../App";
-import { IColumns } from "../types/boards";
 
 const Kanban = () => {
   const {
@@ -67,16 +66,18 @@ const Kanban = () => {
     });
   };
 
-  let randomColorGenerator = () =>
-    Math.floor(Math.random() * 16777215).toString(16);
+  // let randomColorGenerator = () =>
+  //   Math.floor(Math.random() * 16777215).toString(16);
+
+  let colors = ["#49C4E5", "#8471F2", "#67E2AE"];
 
   return (
     <div className="Kanban">
       <DragDropContext
-        onDragEnd={(result) => onDragEnd(result, copy[currentBoard].columns)}
+        onDragEnd={(result) => onDragEnd(result, currentColumns)}
       >
         {/* boards[0] is for the current selected board */}
-        {Object.entries(copy[currentBoard].columns).map(
+        {Object.entries(currentColumns).map(
           ([columnId, column]: [string, any]) => {
             return (
               <div key={columnId}>
@@ -88,7 +89,7 @@ const Kanban = () => {
                           width: 15,
                           height: 15,
                           borderRadius: 50,
-                          backgroundColor: `#${randomColorGenerator()}`,
+                          backgroundColor: colors[Number(columnId)],
                         }}
                       ></div>
 
