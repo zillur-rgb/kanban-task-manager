@@ -30,13 +30,14 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const initialValues: IInitialValues = {
-    title: "" || selectedTask.title,
-    description: "" || selectedTask.description,
-    subtasks: selectedTask.subtasks || [{ name: "" }],
+    title: "" || selectedTask?.title,
+    description: "" || selectedTask?.description,
+    subtasks: [] || selectedTask.subtasks,
     status: "Todo" || selectedTask.status,
   };
 
-  let isSelectedTask = Object.entries(selectedTask).length ? false : true;
+  let isSelectedTask =
+    selectedTask && Object.entries(selectedTask).length ? false : true;
   return (
     <>
       <h1>{isSelectedTask ? "Add New Task" : "Edit Task"}</h1>
@@ -136,7 +137,7 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
                           placeholder="e.g. Make a coffee"
                           name={`subtasks[${index}].title`}
                           className="input"
-                          autocomplete="off"
+                          autoComplete="off"
                         />
                         <img
                           src={cross}
@@ -150,7 +151,7 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
                       type="button"
                       onClick={() => arrayHelpers.push({ title: "" })}
                     >
-                      # Add New Subtask
+                      + Add New Subtask
                     </button>
                   </>
                 )}
@@ -164,7 +165,7 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
                 value={values.values.status}
                 name="status"
                 onClick={() => setIsOpen(true)}
-                autocomplete="off"
+                autoComplete="off"
                 style={
                   values.errors.status && values.touched.status === true
                     ? { outline: "1px solid red" }
