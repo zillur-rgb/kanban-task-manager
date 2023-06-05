@@ -13,7 +13,7 @@ type Props = {
 const SmallDropdown = ({ name, setShowDropDown }: Props) => {
   const ref = useRef(null);
 
-  const { selectedTask, setIsModalOpen } = useContext(CopyContext);
+  const { setIsModalOpen } = useContext(CopyContext);
 
   useClickAway(ref, () => {
     setShowDropDown(false);

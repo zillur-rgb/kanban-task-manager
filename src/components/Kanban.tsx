@@ -4,8 +4,6 @@ import { CopyContext } from "../App";
 
 const Kanban = () => {
   const {
-    copy,
-    currentBoard,
     currentColumns,
     setCurrentColumns,
     setSelectedTask,
