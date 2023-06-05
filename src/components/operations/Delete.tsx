@@ -1,6 +1,7 @@
 import "../../styles/modal.css";
 import { useContext } from "react";
 import { CopyContext } from "../../App";
+import { IBoards } from "../../types/boards";
 
 type Props = {
   selectedTask: any;
@@ -55,9 +56,9 @@ const Delete = ({ selectedTask, setIsModalOpen }: Props) => {
     }
 
     if (isTaskOrBoard === "board") {
-      // When we have a board
-      setCopy(
-        copy.filter((board: any) => board.name !== copy[currentBoard].name)
+      // if we have a board
+      setCopy((prev: IBoards[]) =>
+        prev.filter((board) => board.name !== copy[currentBoard].name)
       );
       setCurrentBoard(0);
     }

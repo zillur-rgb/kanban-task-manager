@@ -1,10 +1,18 @@
 import { useContext } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { CopyContext } from "../App";
+import { IColumns } from "../types/boards";
 
 const Kanban = () => {
-  const { currentColumns, setCurrentColumns, setSelectedTask, setIsModalOpen } =
-    useContext(CopyContext);
+  const {
+    copy,
+    currentBoard,
+    currentColumns,
+    setCurrentColumns,
+    setSelectedTask,
+    setIsModalOpen,
+  } = useContext(CopyContext);
+
   const onDragEnd = (result: any, columns: any) => {
     if (!result.destination) return;
     console.log("currentColumns", currentColumns);
@@ -65,10 +73,10 @@ const Kanban = () => {
   return (
     <div className="Kanban">
       <DragDropContext
-        onDragEnd={(result) => onDragEnd(result, currentColumns)}
+        onDragEnd={(result) => onDragEnd(result, copy[currentBoard].columns)}
       >
         {/* boards[0] is for the current selected board */}
-        {Object.entries(currentColumns).map(
+        {Object.entries(copy[currentBoard].columns).map(
           ([columnId, column]: [string, any]) => {
             return (
               <div key={columnId}>

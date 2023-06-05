@@ -26,12 +26,11 @@ function App() {
   // console.log("BOards", boards);
 
   useEffect(() => {
-    setCurrentColumns({
-      ...copy[currentBoard].columns,
-    });
-
     setselectedBoard({
       ...copy[currentBoard],
+    });
+    setCurrentColumns({
+      ...copy[currentBoard].columns,
     });
   }, [currentBoard]);
 
