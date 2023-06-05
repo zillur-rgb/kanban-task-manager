@@ -33,6 +33,9 @@ const Modal = () => {
         {isModalOpen === "add_new_board" && (
           <BoardForm setIsModalOpen={setIsModalOpen} />
         )}
+        {isModalOpen === "edit_board_form" && (
+          <BoardForm setIsModalOpen={setIsModalOpen} />
+        )}
 
         {isModalOpen === "delete" && (
           <Delete setIsModalOpen={setIsModalOpen} selectedTask={selectedTask} />

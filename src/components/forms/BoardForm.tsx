@@ -1,84 +1,112 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import cross from "../../assets/icon-cross.svg";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import { CopyContext } from "../../App";
 import { validationSchemaBoard } from "../../lib/form-validation";
 
 type Props = {
   setIsModalOpen: (e: string | boolean) => void;
 };
-const BoardForm = ({ setIsModalOpen }: Props) => {
-  const [columnAmount, setColumnAmount] = useState<number>(1);
 
-  const { setCopy } = useContext(CopyContext);
+interface BoardFormValues {
+  name: string;
+  columns: Array<{ name: string }>;
+}
+
+const BoardForm = ({ setIsModalOpen }: Props) => {
+  const { setCopy, selectedBoard, isModalOpen } = useContext(CopyContext);
+
+  const isAddBoard = isModalOpen === "add_new_board" ? true : false;
+
+  const initialValues: BoardFormValues = {
+    name: !isAddBoard ? selectedBoard.name : "",
+    columns: !isAddBoard ? selectedBoard.columns : [{ name: "", columns: [] }],
+  };
   return (
     <>
-      <h1>Add New Board</h1>
+      <h1>{isAddBoard ? "Add New Board" : "Edit Board"}</h1>
 
       <Formik
-        initialValues={{
-          name: "",
-          columns: [],
-        }}
+        initialValues={initialValues}
         validationSchema={validationSchemaBoard}
         onSubmit={(values: any) => {
-          values.columns.map((col: any) => (col.tasks = []));
-          setCopy((prevState: any) => [...prevState, values]);
+          if (isAddBoard) {
+            values.columns.map((col: any) => (col.tasks = []));
+            setCopy((prevState: any) => [...prevState, values]);
+          } else {
+            console.log(values.columns.map((col: any) => col.name));
+          }
           setIsModalOpen(false);
         }}
       >
-        {(values) => (
-          <Form className="form">
-            <div className="field-wrapper">
-              <label htmlFor="name">Board Name</label>
-              <Field
-                name="name"
-                className="input"
-                style={
-                  values.errors.name && values.touched.name === true
-                    ? { outline: "1px solid red" }
-                    : null
-                }
-              />
-              <ErrorMessage
-                name="name"
-                className="error-message"
-                component={"div"}
-              />
-            </div>
+        {(values) => {
+          console.log("values", values);
 
-            <div className="field-wrapper">
-              <label htmlFor="name">Board Columns</label>
-              {Array.from(Array(columnAmount)).map((_, index) => (
-                <div className="subtask-item" key={index}>
-                  <Field
-                    className="input"
-                    placeholder="e.g. Todo"
-                    name={`columns[${index}].name`}
-                  />
+          return (
+            <Form className="form">
+              <div className="field-wrapper">
+                <label htmlFor="name">Board Name</label>
+                <Field
+                  name="name"
+                  className="input"
+                  style={
+                    values.errors.name && values.touched.name === true
+                      ? { outline: "1px solid red" }
+                      : null
+                  }
+                />
+                <ErrorMessage
+                  name="name"
+                  className="error-message"
+                  component={"div"}
+                />
+              </div>
 
-                  <img
-                    src={cross}
-                    alt="cross"
-                    onClick={() => setColumnAmount((prev) => (prev -= 1))}
-                  />
-                </div>
-              ))}
-            </div>
+              <div className="field-wrapper">
+                <label htmlFor="name">Board Columns</label>
 
-            <button
-              className="button"
-              type="button"
-              onClick={() => setColumnAmount((prev) => (prev += 1))}
-            >
-              + Add New Column
-            </button>
+                <FieldArray
+                  name="columns"
+                  render={(arrayHelpers) => {
+                    return (
+                      <>
+                        {values.values.columns.map((__: any, index: number) => (
+                          <div key={index} className="subtask-item">
+                            <Field
+                              placeholder="e.g. Todo"
+                              name={`columns[${index}].name`}
+                              className="input"
+                            />
+                            <img
+                              src={cross}
+                              alt="cross"
+                              onClick={() => arrayHelpers.remove(index)}
+                            />
+                          </div>
+                        ))}
+                        <button
+                          className="button"
+                          type="button"
+                          onClick={() =>
+                            arrayHelpers.push({
+                              name: "",
+                            })
+                          }
+                        >
+                          + Add New Column
+                        </button>
+                      </>
+                    );
+                  }}
+                />
+              </div>
 
-            <button type="submit" className="button submit">
-              Create New Board
-            </button>
-          </Form>
-        )}
+              <button type="submit" className="button submit">
+                {isAddBoard ? "Create New Board" : "Save Changes"}
+              </button>
+            </Form>
+          );
+        }}
       </Formik>
     </>
   );

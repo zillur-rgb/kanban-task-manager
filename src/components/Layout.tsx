@@ -13,6 +13,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     useContext(CopyContext);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
+  console.log("copy", copy);
+
   const [showSidebar, setShowSidebar] = useState<boolean>(true);
 
   return (
@@ -33,7 +35,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                       onClick={() => setCurrentBoard(index)}
                       // className={handleChosen(board)}
                       className={`list-board ${
-                        board.name === copy[currentBoard].name ? "active" : ""
+                        board.name === copy[currentBoard].name
+                          ? "active"
+                          : undefined
                       }`}
                     >
                       <img src={boardImg} alt="board" />

@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { useClickAway } from "react-use";
 import "../../styles/dropdown.css";
+import { CopyContext } from "../../App";
 
 type Props = {
   name: string;
@@ -9,8 +10,10 @@ type Props = {
   setIsModalOpen: any;
 };
 
-const SmallDropdown = ({ name, setShowDropDown, setIsModalOpen }: Props) => {
+const SmallDropdown = ({ name, setShowDropDown }: Props) => {
   const ref = useRef(null);
+
+  const { selectedTask, setIsModalOpen } = useContext(CopyContext);
 
   useClickAway(ref, () => {
     setShowDropDown(false);
@@ -24,7 +27,7 @@ const SmallDropdown = ({ name, setShowDropDown, setIsModalOpen }: Props) => {
     if (name === "Task") {
       setIsModalOpen("task_form");
     } else {
-      setIsModalOpen("add_new_board");
+      setIsModalOpen("edit_board_form");
     }
 
     setShowDropDown(false);

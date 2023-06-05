@@ -29,11 +29,25 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  console.log("selectedTask", selectedTask);
+
   const initialValues: IInitialValues = {
-    title: "" || selectedTask?.title,
-    description: "" || selectedTask?.description,
-    subtasks: [] || selectedTask.subtasks,
-    status: "Todo" || selectedTask.status,
+    title:
+      selectedTask && Object.keys(selectedTask).length > 0
+        ? selectedTask?.title
+        : "",
+    description:
+      selectedTask && Object.keys(selectedTask).length > 0
+        ? selectedTask?.description
+        : "",
+    subtasks:
+      selectedTask && Object.keys(selectedTask).length > 0
+        ? selectedTask.subtasks
+        : [],
+    status:
+      selectedTask && Object.keys(selectedTask).length > 0
+        ? selectedTask.status
+        : "Todo",
   };
 
   let isSelectedTask =
@@ -81,117 +95,120 @@ const TaskForm = ({ setIsModalOpen }: Props) => {
           setIsModalOpen(false);
         }}
       >
-        {(values: FormikProps<IInitialValues>) => (
-          <Form className="form">
-            <div className="field-wrapper">
-              <label htmlFor="title">Title</label>
-              <Field
-                className="input"
-                name="title"
-                placeholder="e.g. Take coffee break"
-                style={
-                  values.errors.title && values.touched.title === true
-                    ? { outline: "1px solid red" }
-                    : null
-                }
-              />
-              <ErrorMessage
-                name="title"
-                component={"div"}
-                className="error-message"
-              />
-            </div>
+        {(values: FormikProps<IInitialValues>) => {
+          console.log("values", values);
+          return (
+            <Form className="form">
+              <div className="field-wrapper">
+                <label htmlFor="title">Title</label>
+                <Field
+                  className="input"
+                  name="title"
+                  placeholder="e.g. Take coffee break"
+                  style={
+                    values.errors.title && values.touched.title === true
+                      ? { outline: "1px solid red" }
+                      : null
+                  }
+                />
+                <ErrorMessage
+                  name="title"
+                  component={"div"}
+                  className="error-message"
+                />
+              </div>
 
-            <div className="field-wrapper">
-              <label htmlFor="description">Description</label>
-              <Field
-                name="description"
-                as="textarea"
-                placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
-                className="input textarea"
-                style={
-                  values.errors.description &&
-                  values.touched.description === true
-                    ? { outline: "1px solid red" }
-                    : null
-                }
-              />
+              <div className="field-wrapper">
+                <label htmlFor="description">Description</label>
+                <Field
+                  name="description"
+                  as="textarea"
+                  placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
+                  className="input textarea"
+                  style={
+                    values.errors.description &&
+                    values.touched.description === true
+                      ? { outline: "1px solid red" }
+                      : null
+                  }
+                />
 
-              <ErrorMessage
-                name="description"
-                component="div"
-                className="error-message"
-              />
-            </div>
+                <ErrorMessage
+                  name="description"
+                  component="div"
+                  className="error-message"
+                />
+              </div>
 
-            <div className="field-wrapper">
-              <label htmlFor="subtasks">Subtasks</label>
+              <div className="field-wrapper">
+                <label htmlFor="subtasks">Subtasks</label>
 
-              <FieldArray
-                name="subtasks"
-                render={(arrayHelpers) => (
-                  <>
-                    {values.values.subtasks.map((__, index) => (
-                      <div className="subtask-item" key={index}>
-                        <Field
-                          placeholder="e.g. Make a coffee"
-                          name={`subtasks[${index}].title`}
-                          className="input"
-                          autoComplete="off"
-                        />
-                        <img
-                          src={cross}
-                          alt="remove"
-                          onClick={() => arrayHelpers.remove(index)}
-                        />
-                      </div>
-                    ))}
-                    <button
-                      className="button"
-                      type="button"
-                      onClick={() => arrayHelpers.push({ title: "" })}
-                    >
-                      + Add New Subtask
-                    </button>
-                  </>
-                )}
-              ></FieldArray>
-            </div>
+                <FieldArray
+                  name="subtasks"
+                  render={(arrayHelpers) => (
+                    <>
+                      {values.values.subtasks.map((__, index) => (
+                        <div className="subtask-item" key={index}>
+                          <Field
+                            placeholder="e.g. Make a coffee"
+                            name={`subtasks[${index}].title`}
+                            className="input"
+                            autoComplete="off"
+                          />
+                          <img
+                            src={cross}
+                            alt="remove"
+                            onClick={() => arrayHelpers.remove(index)}
+                          />
+                        </div>
+                      ))}
+                      <button
+                        className="button"
+                        type="button"
+                        onClick={() => arrayHelpers.push({ title: "" })}
+                      >
+                        + Add New Subtask
+                      </button>
+                    </>
+                  )}
+                ></FieldArray>
+              </div>
 
-            <div className="field-wrapper parent">
-              <label htmlFor="status">Status</label>
-              <Field
-                className="input"
-                value={values.values.status}
-                name="status"
-                onClick={() => setIsOpen(true)}
-                autoComplete="off"
-                style={
-                  values.errors.status && values.touched.status === true
-                    ? { outline: "1px solid red" }
-                    : null
-                }
-              />
+              <div className="field-wrapper parent">
+                <label htmlFor="status">Status</label>
+                <Field
+                  className="input"
+                  value={values.values.status}
+                  name="status"
+                  onClick={() => setIsOpen(true)}
+                  autoComplete="off"
+                  style={
+                    values.errors.status && values.touched.status === true
+                      ? { outline: "1px solid red" }
+                      : null
+                  }
+                />
 
-              <ErrorMessage
-                name="status"
-                component="div"
-                className="error-message"
-              />
+                <ErrorMessage
+                  name="status"
+                  component="div"
+                  className="error-message"
+                />
 
-              <Dropdown
-                currentColumns={currentColumns}
-                name="status"
-                isOpen={isOpen}
-                setIsOpen={setIsOpen}
-              />
-            </div>
+                <Dropdown
+                  currentColumns={currentColumns}
+                  name="status"
+                  isOpen={isOpen}
+                  setIsOpen={setIsOpen}
+                />
+              </div>
 
-            <button type="submit" className="button submit">
-              {isSelectedTask ? "Create Task" : "Save Changes"}
-            </button>
-          </Form>
-        )}
+              <button type="submit" className="button submit">
+                {isSelectedTask ? "Create Task" : "Save Changes"}
+              </button>
+            </Form>
+          );
+        }}
       </Formik>
     </>
   );

@@ -21,12 +21,17 @@ function App() {
   // Set modal status
   const [isModalOpen, setIsModalOpen] = useState<boolean | string>(false);
   const [selectedTask, setSelectedTask] = useState();
+  const [selectedBoard, setselectedBoard] = useState({});
 
   // console.log("BOards", boards);
 
   useEffect(() => {
     setCurrentColumns({
       ...copy[currentBoard].columns,
+    });
+
+    setselectedBoard({
+      ...copy[currentBoard],
     });
   }, [currentBoard]);
 
@@ -43,6 +48,8 @@ function App() {
         setSelectedTask,
         isModalOpen,
         setIsModalOpen,
+        selectedBoard,
+        setselectedBoard,
       }}
     >
       <div>
